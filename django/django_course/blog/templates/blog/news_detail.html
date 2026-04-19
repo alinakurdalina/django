@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block content %}
+<article>
+    <h1 style="color: #1a1a2e; margin-bottom: 0.5rem;">{{ news.title }}</h1>
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid #ddd;">
+        <div style="color: #FFFFFF;">
+            👤 Автор: <strong>{{ news.author.username }}</strong> |
+            📅 {{ news.date_published|date:"d.m.Y H:i" }}
+        </div>
+        {% if user.is_staff or user.is_superuser %}
+        <div style="display: flex; gap: 0.5rem;">
+            <a href="{% url 'blog:news_edit' news.pk %}" class="btn btn-primary">✏️ Редактировать</a>
+            <a href="{% url 'blog:news_delete' news.pk %}" class="btn btn-danger" onclick="return confirm('Вы уверены?')">🗑️ Удалить</a>
+        </div>
+        {% endif %}
+    </div>
+
+    {% if news.image %}
+    <div style="margin-bottom: 2rem;">
+        <img src="{{ news.image.url }}" alt="{{ news.title }}" style="max-width: 100%; border-radius: 15px;">
+    </div>
+    {% endif %}
+
+    <div style="font-size: 1.1rem; line-height: 1.8; color: #FFFFFF; margin-bottom: 2rem;">
+        {{ news.content|linebreaks }}
+    </div>
+</article>
+
+<div class="comments-section">
+    <h3 style="margin-bottom: 1rem;">💬 Комментарии ({{ comments.count }})</h3>
+
+    {% if user.is_authenticated %}
+    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem;">
+        <h4>Оставить комментарий</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.text }}
+            <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Отправить</button>
+        </form>
+    </div>
+    {% else %}
+    <p><a href="{% url 'users:login' %}">Войдите</a>, чтобы оставить комментарий</p>
+    {% endif %}
+
+    {% for comment in comments %}
+    <div class="comment">
+        <div class="comment-header">
+            <span class="comment-author">👤 {{ comment.user.username }}</span>
+            <span>{{ comment.date_created|date:"d.m.Y H:i" }}</span>
+        </div>
+        <p>{{ comment.text }}</p>
+    </div>
+    {% empty %}
+    <p>Комментариев пока нет. Будьте первым!</p>
+    {% endfor %}
+</div>
+{% endblock %}

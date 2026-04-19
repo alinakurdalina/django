@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block content %}
+<h1 style="color: #1a1a2e; margin-bottom: 2rem;">Контакты</h1>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+    <div style="background: white; padding: 2rem; border-radius: 15px;">
+        <h2 style="margin-bottom: 1rem;">🏢 Адрес</h2>
+        <p>г. Москва, ул. Тверская, д. 15</p>
+        <p>Бизнес-центр "Платформа", офис 501</p>
+    </div>
+    
+    <div style="background: white; padding: 2rem; border-radius: 15px;">
+        <h2 style="margin-bottom: 1rem;">📞 Телефоны</h2>
+        <p>+7 (495) 123-45-67</p>
+        <p>+7 (800) 555-35-35 (бесплатно)</p>
+    </div>
+    
+    <div style="background: white; padding: 2rem; border-radius: 15px;">
+        <h2 style="margin-bottom: 1rem;">✉️ Email</h2>
+        <p>info@company.ru</p>
+        <p>support@company.ru</p>
+    </div>
+    
+    <div style="background: white; padding: 2rem; border-radius: 15px;">
+        <h2 style="margin-bottom: 1rem;">⏰ Часы работы</h2>
+        <p>Пн-Пт: 9:00 - 18:00</p>
+        <p>Сб-Вс: выходной</p>
+    </div>
+</div>
+
+<div style="margin-top: 2rem; background: white; padding: 2rem; border-radius: 15px;">
+    <h2>📧 Напишите нам</h2>
+    <p>Вы можете связаться с нами по email или по телефону. Мы всегда рады ответить на ваши вопросы!</p>
+</div>
+{% endblock %}
